@@ -33,7 +33,7 @@
       <script>
           var map = L.map('map', {
                 center: [33.135, 103.378], //supposed to change the center line
-                zoom: 5
+                zoom: 4
             });
 //this is the basemap connection
 
@@ -128,7 +128,7 @@
             }
 
 function createSliderUI(timestamps) {
-  var sliderControl = L.control({ position: 'bottomleft'} ); // position of the slider
+  var sliderControl = L.control({ position: 'topright'} ); // position of the slider
                     // Another use of L.control :)
   sliderControl.onAdd = function(map) {
     //initialize a range slider with mousedown control
