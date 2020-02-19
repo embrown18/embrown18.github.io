@@ -46,7 +46,7 @@
       }).addTo(map);
 
           //change the file name to yours
-            $.getJSON("https://rshepard2.github.io/cases2.geojson")  // The getJSON() method is used to get JSON data
+            $.getJSON("https://embrown18.github.io/covid19Cases.geojson")  // The getJSON() method is used to get JSON data
             .done(function(data) {
                 var info = processData(data);
                 createPropSymbols(info.timestamps, data);
@@ -67,10 +67,10 @@
 
                   // At each row, go through the columns/attributes to get the values
                   for (var attribute in properties) {
-                      if ( attribute != 'id' &&
-                           attribute != 'name' &&
-                           attribute != 'latitude' &&
-                           attribute != 'longitude' )   // != means NOT EQUAL TO
+                      if ( attribute = 'FID' &&
+                           attribute = 'Providence' &&
+                           attribute = 'lat' &&
+                           attribute = 'lon' )   // != means NOT EQUAL TO
                                                   // These three columns are NOT recorded
                                                   // Modify this part when mapping your own data
                       {
