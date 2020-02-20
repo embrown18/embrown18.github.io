@@ -37,13 +37,13 @@
             });
 //this is the basemap connection
 
-        L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}', {
-        	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        	subdomains: 'abcd',
-        	minZoom: 0,
-        	maxZoom: 18,
-        	ext: 'png'
-      }).addTo(map);
+        L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+	         attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	          subdomains: 'abcd',
+	           minZoom: 0,
+	            maxZoom: 20,
+	             ext: 'png'
+        }).addTo(map);
 
           //change the file name to yours
             $.getJSON("https://embrown18.github.io/covid19Cases.geojson")  // The getJSON() method is used to get JSON data
@@ -139,7 +139,7 @@ function createSliderUI(timestamps) {
 
     // Define the labels of the time slider as an array of strings
     // Modify this for your data
-    var labels = ["February 1, 2020", "February 2, 2020","February 3, 2020","February 4, 2020", "February 5, 2020", "February 6, 2020","February 7, 2020", "February 8, 2020"];
+    var labels = ["February 1", "February 2","February 3","February 4", "February 5", "February 6","February 7", "February 8"];
 
     $(slider)
         .attr({
