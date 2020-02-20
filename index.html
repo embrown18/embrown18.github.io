@@ -32,7 +32,7 @@
 
       <script>
           var map = L.map('map', {
-                center: [33.135999, 103.378999], //supposed to change the center line
+                center: [33.135999, 95.378999], //supposed to change the center line
                 zoom: 5
             });
 //this is the basemap connection
@@ -46,7 +46,7 @@
         }).addTo(map);
 
           //change the file name to yours
-            $.getJSON("https://embrown18.github.io/covid19Cases.geojson")  // The getJSON() method is used to get JSON data
+            $.getJSON("https://embrown18.github.io/Lab4/Covid_Rate.geojson")  // The getJSON() method is used to get JSON data
             .done(function(data) {
                 var info = processData(data);
                 createPropSymbols(info.timestamps, data);
@@ -144,8 +144,8 @@ function createSliderUI(timestamps) {
     $(slider)
         .attr({
           'type':'range',
-          'max': 8,
-          'min':1,
+          'max':parseInt(timestamps[timestamps.length-1]),
+          'min':parseInt(timestamps[0]),
           'step': 1, // Change this to match the numeric interval between adjacent timestamps
           'value': String(timestamps[0])
         })
@@ -182,7 +182,7 @@ function createSliderUI(timestamps) {
                   var radius = calcPropRadius(props[timestamp]); // circle radius, calculation function defined below
 
                   // pop-up information (when mouseover) for each city is also defined here
-                 var popupContent =  String(props[timestamp]) +' People Infected' ;
+                 var popupContent =  String(props[timestamp]) +' People Infected in ' + props.Providence ;
 
                   layer.setRadius(radius);  // Leaflet method for setting the radius of a circle
                   layer.bindPopup(popupContent, { offset: new L.Point(0,-radius) }); // bind the popup content, with an offset
@@ -192,7 +192,7 @@ function createSliderUI(timestamps) {
             // calculate the radius of the proportional symbols based on area
             function calcPropRadius(attributeValue) {
 
-              var scaleFactor = 0.01;   // the scale factor is used to scale the values; the units of the radius are in meters
+              var scaleFactor = 1;   // the scale factor is used to scale the values; the units of the radius are in meters
                                          // you may determine the scale factor accordingly based on the range of the values and the mapping scale
               var area = attributeValue * scaleFactor;
 
