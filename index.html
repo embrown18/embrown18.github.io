@@ -33,7 +33,7 @@
       <script>
           var map = L.map('map', {
                 center: [33.135, 103.378], //supposed to change the center line
-                zoom: 2
+                zoom: 4
             });
 //this is the basemap connection
 
@@ -146,7 +146,7 @@ function createSliderUI(timestamps) {
           'type':'range',
           'max': timestamps[timestamps.length-1],
           'min':timestamps[0],
-          'step': 3, // Change this to match the numeric interval between adjacent timestamps
+          'step': 1, // Change this to match the numeric interval between adjacent timestamps
           'value': String(timestamps[0])
         })
         .on('input change', function() {
