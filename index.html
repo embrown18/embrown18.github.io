@@ -144,8 +144,8 @@ function createSliderUI(timestamps) {
     $(slider)
         .attr({
           'type':'range',
-          'max': timestamps[timestamps.length-1],
-          'min':timestamps[0],
+          'max': 8,
+          'min':1,
           'step': 1, // Change this to match the numeric interval between adjacent timestamps
           'value': String(timestamps[0])
         })
