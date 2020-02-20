@@ -182,7 +182,7 @@ function createSliderUI(timestamps) {
                   var radius = calcPropRadius(props[timestamp]); // circle radius, calculation function defined below
 
                   // pop-up information (when mouseover) for each city is also defined here
-                 var popupContent =  String(props[timestamp]) +' People Infected in' + prop.Providence ;
+                 var popupContent =  String(props[timestamp]) +' People Infected' ;
 
                   layer.setRadius(radius);  // Leaflet method for setting the radius of a circle
                   layer.bindPopup(popupContent, { offset: new L.Point(0,-radius) }); // bind the popup content, with an offset
