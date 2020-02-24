@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -34,16 +33,25 @@
                   ext : 'png'
                   }
     });
-    //made the layer imagery for the first map  
-    L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}/{ext}',{
+    //made the layer imagery for the first map
+    var canvas = L.titleLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}',{
+                 attribution : 'Map tiles by <a href ="http://stamen.com">Stamen Design </a>, <a href = "http://creativecommons.org/licenses/by/3.0">
+                 CC BY 3.0</a> &mdash; Map data &copy; <a href= "https:/www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                 subdomains : 'abcd',
+                 minZoom : 0,
+                 maxZoom : 20,
+                 ext : 'png'
+               } ).addTo(map);
+
+                L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}/{ext}',{
                 attribution : 'Map tiles by <a href = "https://stamen.com">Stamen Design</a>, <a href ="https://creativecommons.org/licenses/by/3.0">{
-                  CC BY href = "https://www.openstreetmap.org/copyright">OpenStreeMap</a> contributions',
-                  subdomains : 'abcd'
-                  minZoom : 0,
-                  maxzoom : 20,
-                  ext : 'png'
+                CC BY href = "https://www.openstreetmap.org/copyright">OpenStreeMap</a> contributions',
+                subdomains : 'abcd'
+                minZoom : 0,
+                maxzoom : 20,
+                ext : 'png'
                 }
-    }).addTo(map);
+              }).addTo(map);
 
     </script>
   </body>
