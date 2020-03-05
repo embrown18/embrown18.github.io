@@ -57,6 +57,17 @@
                 ext : 'png'
                 }
               }).addTo(map);
+    var basemap = {
+      "Light Canvas" : canvas,
+      "Satellite Imagery" : imagery,
+    } ;
+
+    var = overlaymaps = {
+      "China Provinces" : areaP
+    } ;
+
+    L.control.layers(basemaps, overlaymaps).addTo(map);
+
 
     </script>
   </body>
