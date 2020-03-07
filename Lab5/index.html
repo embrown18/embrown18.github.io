@@ -1,95 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-
-
-
-<!-- here  is the head scection, and it has set the height and the margins of the webpage itself -->
+    <!-- here  is the head scection, and it has set the height and the margins of the webpage itself -->
+    <meta charset="utf-8">
     <title>Emily Lab 5</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
 
     <script src = "https://embrown18.github.io/Lab5/province.js"></script>
     <script src = "https://embrown18.github.io/Lab5/dataCovid.js"></script>
 
-    <style type = "test/css">
-          html, body { margin : 0; padding : 0; height : 100%; }
-          #map { min-height : 100%; }
+    <style type = "text/css">
+          html, body { margin: 0; padding: 0; height: 100%; }
+          #map { min-height: 100%; }
     </style>
-    
+
   </head>
 
   <body>
     <div id = "map"></div>
 
     <script type = "text/javascript">
-    var map = L.map('map', {
-        center : [34.666, 104.9569],
-        zoom : 5
-    });
+        var map = L.map('map', {
+            center : [34.666, 104.9569],
+            zoom : 5
+        });
 
-console.log("Should log produce the basemap");
-    var imagery = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}', {
-                  attribution: 'Map tiles by <a href = "http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0"> CC BY 3.0</a> &mdash; Map data &copy; <a href = "https://www.openstreetmap.org/copyright">OpenStreeMap</a> contributors',
-                  subdomains : 'abcd',
-                  minZoom : 0,
-                  maxZoom : 18,
-                  ext : 'png'
-    });
-    //made the layer imagery for the first map
-    var canvas = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
-                 attribution :'Map tiles by <a href = "http://stamen.com"> Stamen Design </a>, <a href ="http://creativecommons.org/licenses/by/3.0"> CC BY 3.0 </a> &mdash; Map data &copy; <a href = "https://www.openstreetmap.org/copyright">OpenStreeMap</a> contributors' ,
-                 subdomains : 'abcd',
-                 minZoom : 0,
-                 maxZoom : 20,
-                 ext : 'png'
-    } ).addTo(map);
-console.log("Canvas and Imagery");
-    function getColor(value) {
-      return value > 50000000 ? '#54278f':
-             value > 25000000 ? '#756bb1':
-             value > 10000000 ? '#9e9ac8':
-             value > 5000000  ? '#cbc9e2':
-                                '#f2f0f7';
-    }
-    function style(feature){
-      return {
-        fillColor : getColor(feature.properties.POP10),
-        weight : 2,
-        opacity : 1,
-        color : 'gray',
-        fillOpacity : 0.9
+        var imagery = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}', {
+                      attribution: 'Map tiles by <a href = "http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0"> CC BY 3.0</a> &mdash; Map data &copy; <a href = "https://www.openstreetmap.org/copyright">OpenStreeMap</a> contributors',
+                      subdomains : 'abcd',
+                      minZoom : 0,
+                      maxZoom : 18,
+                      ext : 'png'
+        });
+        //made the layer imagery for the first map
+        var canvas = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
+                     attribution :'Map tiles by <a href = "http://stamen.com"> Stamen Design </a>, <a href ="http://creativecommons.org/licenses/by/3.0"> CC BY 3.0 </a> &mdash; Map data &copy; <a href = "https://www.openstreetmap.org/copyright">OpenStreeMap</a> contributors' ,
+                     subdomains : 'abcd',
+                     minZoom : 0,
+                     maxZoom : 20,
+                     ext : 'png'
+        }).addTo(map);
 
-            };
-    }
-console.log("Styling the Feature");
-    var areaP = L.geoJson(data).addTo(map) ; //to add the geoJson thats called in earlier, China Provinces
 
-    var areaC = L.geoJson(dataC).addTo(map) ; // the second geoJson, Covid Cases
+        console.log("Canvas and Imagery");
+        function getColor(value) {
+          return value > 50000000 ? '#737373':
+                 value > 25000000 ? '#969696':
+                 value > 10000000 ? '#bdbdbd':
+                 value > 5000000  ? '#d9d9d9':
+                                    '#f0f0f0';
+        }
+        function style(feature){
+          return {
+            fillColor : getColor(feature.properties.POP10),
+            weight : 3,
+            opacity : 1,
+            color : 'white',
+            fillOpacity : 1
 
-    var provinces = new L.geoJson(data, {style:style}).addTo(map); //this is in 5.2 with adding style
-console.log("Creating the min and Rad");
-    var minValue = 100;
-    var minRadius = 5;
+                };
+        }
+        console.log("Styling the Feature");
+        var areaP = L.geoJson(data).addTo(map) ; //to add the geoJson thats called in earlier, China Provinces
 
-    function calcRadius(val) {
-      return 0.4 * Math.pow(val/minValue, 0.7) * minRadius;
-    }
+        var areaC = L.geoJson(dataC).addTo(map) ; // the second geoJson, Covid Cases
 
-    var covidData = new L.geoJson(dataC).addTo(map);
+        var provinces = new L.geoJson(data, {style:style}).addTo(map); //this is in 5.2 with adding style
+        console.log("Creating the min and Rad");
+        var minValue = 100;
+        var minRadius = 5;
 
-    var basemap = {
-      "Light Canvas" : canvas,
-      "Satellite Imagery" : imagery
-    } ;
-console.log("Above the control layers");
-    var overlaymaps = {
-      "China Provinces" : areaP
-    } ;
+        function calcRadius(val) {
+          return 0.4 * Math.pow(val/minValue, 0.7) * minRadius;
+        }
 
-    L.control.layers(basemap, overlaymaps).addTo(map);
-console.log(dataC);
+        var covidData = new L.geoJson(dataC, {
+            pointToLayer : function(feature, ll){
+                console.log(feature.properties['1']);
+                return L.circleMarker(ll, {
+                    color : '#cc4c02',
+                    opacity : 1,
+                    weight : 2,
+                    fillColor : '#fed98e',
+                    fillOpacity : 0.75,
+                    //radius 10
+                    radius :  calcRadius(feature.properties['1'])
+
+                });
+            }
+        });
+
+        covidData.addTo(map);
+
+        var basemap = {
+          "Light Canvas" : canvas,
+          "Satellite Imagery" : imagery
+        } ;
+        console.log("Above the control layers");
+        var overlaymaps = {
+          "China Provinces" : areaP
+        } ;
+
+        L.control.layers(basemap, overlaymaps).addTo(map);
+        console.log(dataC);
 
     </script>
   </body>
