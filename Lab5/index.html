@@ -14,6 +14,14 @@
     <style type = "text/css">
           html, body { margin: 0; padding: 0; height: 100%; }
           #map { min-height: 100%; }
+                  .legend {
+                    padding: 6px 8px;
+                    line-height: 18px;
+                    background: rgba(255, 255, 255, 0.9);
+                    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+                    border-radius: 5px;
+                  }
+
     </style>
 
   </head>
@@ -44,15 +52,15 @@
         }).addTo(map);
 
 
-        console.log("Canvas and Imagery");
-        function getColor(value) {
+
+        function getColor(value) { //creating the breaks in population
           return value > 50000000 ? '#737373':
                  value > 25000000 ? '#969696':
                  value > 10000000 ? '#bdbdbd':
                  value > 5000000  ? '#d9d9d9':
                                     '#f0f0f0';
         }
-        function style(feature){
+        function style(feature){ //color of the provinces per population
           return {
             fillColor : getColor(feature.properties.POP10),
             weight : 3,
@@ -62,23 +70,33 @@
 
                 };
         }
-        console.log("Styling the Feature");
+
+        var onEachFeature = function(feature, layer) {
+            if (feature.properties) {
+              var prop = feature.properties;
+        var popup = '<h3>' +prop['Providence']+ '</h3>'+'Cases on 2/1/20:<br>' + +prop['1'];
+
+        feature.layer = layer;
+        layer.bindPopup(popup, {maxWidth: "auto"});
+            }
+        };
+
         var areaP = L.geoJson(data).addTo(map) ; //to add the geoJson thats called in earlier, China Provinces
 
         var areaC = L.geoJson(dataC).addTo(map) ; // the second geoJson, Covid Cases
 
         var provinces = new L.geoJson(data, {style:style}).addTo(map); //this is in 5.2 with adding style
-        console.log("Creating the min and Rad");
+
         var minValue = 100;
         var minRadius = 5;
 
-        function calcRadius(val) {
-          return 0.4 * Math.pow(val/minValue, 0.7) * minRadius;
+        function calcRadius(val) { //creating the val variable to be used in computations
+          return 0.8 * Math.pow(val/minValue, 0.5) * minRadius;
         }
 
-        var covidData = new L.geoJson(dataC, {
+        var covidData = new L.geoJson(dataC, { //setting up the colors and markers
+            onEachFeature : onEachFeature,
             pointToLayer : function(feature, ll){
-                console.log(feature.properties['1']);
                 return L.circleMarker(ll, {
                     color : '#cc4c02',
                     opacity : 1,
@@ -98,13 +116,31 @@
           "Light Canvas" : canvas,
           "Satellite Imagery" : imagery
         } ;
-        console.log("Above the control layers");
         var overlaymaps = {
           "China Provinces" : areaP
         } ;
 
-        L.control.layers(basemap, overlaymaps).addTo(map);
-        console.log(dataC);
+        L.control.layers(basemap, overlaymaps, {collapsed:false}).addTo(map);
+
+        var legend = L.control({position : 'bottomright'});
+            legend.onAdd = function(map) {
+                var div = L.DomUtil.create('div', 'legend'), //diving into breaks on the legend, should match your earlier breaks
+                  shade = [0, 5000000, 10000000, 25000000, 50000000];
+
+                  div.innerHTML = '<b>Population 2019 <br><br></br>'; //legend title
+                  for (var i = 0; i < shade.length; i++) {
+                    div.innerHTML +=
+                   '<i style="background:'+ getColor(shade[i] + 1) + '"></i>' + shade[i]  + (shade[i + 1] ? '&ndash;' + shade[i + 1] + '<br><br>' : '+'); //the colors should be put up on the legend (var shades)
+                  }
+                    return div;
+            };
+            legend.addTo(map);
+
+            map.on('overlayremove', function(eventLayer){
+              if (eventLayer.name == 'Providence'){ // We use the key/dispay name to refer to the layers
+                  map.removeControl(legend);
+                }
+            });
 
     </script>
   </body>
