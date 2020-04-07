@@ -7,7 +7,7 @@
     <body>
       <script src= "https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"> </script>
      <!-- adds Open Layers Library -->
-      <div id="map" style= "width: 1000px; height: 800px;"></div>
+      <div id="map" style= "width: 1200px; height: 800px;"></div>
       <div id="popup" class ="ol-popup">
         <a href = "#" id="popup-closer" class="ol-popup-closer"></a>
         <div id="popup-content"><div>
@@ -32,9 +32,9 @@
           ],
           target: 'map',
           view: new ol.View({
-            center: ol.proj.fromLonLat([-96.6607, 40.8073]),
+            center: ol.proj.fromLonLat([-96.683370, 40.802084]),
             maxZoom: 18,
-            zoom: 12
+            zoom: 15
           })
         });
 
@@ -42,7 +42,7 @@
           source: new ol.source.Vector({
             features: [
             new ol.Feature({
-              geometry: new ol.geom.Point(ol.proj.fromLonLat([-96.6607, 40.8073]))
+              geometry: new ol.geom.Point(ol.proj.fromLonLat([-96.683370, 40.802084]))
             })
             ]
           })
@@ -71,14 +71,18 @@
         map.on('singleclick', function (event){
           if (map.hasFeatureAtPixel(event.pixel) === true) {
               var coordinate = event.coordinate;
+
+              content.innerHTML = '<b>Sunken Gardens';
+              overlay.setPosition(coordinate);
+
           } else {
               overlay.setPosition(undefined);
               closer.blur();
           }
         });
 
-        content.innerHTML = '<b>Hello world!</b><br /> I am a popup.';
-          overlay.setPosition(ol.proj.fromLonLat([4.35247, 50.84673]));
-
+        // content.innerHTML = '<b>Hello world!</b><br /> I am a popup.';
+        //   overlay.setPosition(ol.proj.fromLonLat([4.35247, 50.84673]));
+        //
 
         </script>
