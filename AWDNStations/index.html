@@ -44,7 +44,7 @@
        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
      }).addTo(map); //calls the basemap that is being used
 
-     var eachPoint = function(feature, layer){
+     var onEachPoint = function(feature, layer){
        if (feature.properties) {
          var prop = feature.properties;
        var infoPop = '<h3>' +prop['Name'] + '<h3>' + 'ID Number:' + +prop['ID']+ '<h3>' + +prop['status']; //writing out what the popup should say
@@ -54,7 +54,7 @@
      };
 
      var pointShape = new L.geoJson(totData, {
-       eachPoint : eachPoint, //An IF statement about the statuses of the stations, marking their colors on the map
+       onEachPoint : onEachPoint, //An IF statement about the statuses of the stations, marking their colors on the map
        pointToLayer : function(feature, ll){
          if (feature.properties.status == "ACTIVE") {
             return L.circleMarker(ll, {
