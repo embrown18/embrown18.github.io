@@ -3,7 +3,7 @@
   <head>
     <title> Lab 9 | Emily D3 </title>
 
-    <script src = "https://d3js.org/d3.v5.min.js" chaset = "utf-8"></script>
+    <script src = "https://d3js.org/d3.v5.min.js" charset = "utf-8"></script>
     <script src = "https://rshepard2.github.io/Lab9/data/lnkrds.js"> </script>
 
   </head>
@@ -18,10 +18,14 @@
         .attr("width", width)
         .attr("height", height);
 
+      console.log(svg)
+
       var g = svg.append("g");
 
+      console.log(g);
+
       var albersP = d3.geoAlbers() //make Albers Projection, with a center around Lincoln Ne
-        .scale( 2850000)
+        .scale( 2850000 )
         .rotate( [96.9327, 0])
         .center( [0, 40.8497493])
         .translate( [width/2, height/2]);
@@ -29,13 +33,16 @@
       var geoPath = d3.geoPath() //path generator
         .projection(albersP);
 
-      d3.selectAll("path") //binding elements to data
+      console.log(lnkrds.features);
+
+      g.selectAll("path") //binding elements to data
         .data( lnkrds.features )
         .enter()
         .append("path")
         .attr("fill" , "#ccc")
         .attr("stroke", "#333")
         .attr("d", geoPath);
+        console.log(g.selectAll("path"));
 
     </script>
   </body>
