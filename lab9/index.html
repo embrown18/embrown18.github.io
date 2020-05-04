@@ -18,11 +18,7 @@
         .attr("width", width)
         .attr("height", height);
 
-
-
       var g = svg.append("g");
-
-
 
       var albersP = d3.geoAlbers() //make Albers Projection, with a center around Lincoln Ne
         .scale( 2850000 )
@@ -32,8 +28,6 @@
 
       var geoPath = d3.geoPath() //path generator
         .projection(albersP);
-
-
 
       g.selectAll("path") //binding elements to data
         .data( lnkrds.features )
