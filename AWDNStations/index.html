@@ -27,7 +27,38 @@
          html, body { margin: 0; padding: 0; height: 100%; }
          #map { min-height: 100%; }
 /* page dimensions */
+         .legend {
+           padding: 6px 8px;
+           font: 14px Arial, Helvetica, sans-serif;
+           background: white;
+           background: rgba(255, 255, 255, 0.8);
+           line-height: 24px;
+           color: #555;
+         }
+         .legend h4 {
+           text-align: center;
+           font-size: 18px;
+           margin: 2px 12px 8px;
+           color: #777;
+         }
 
+         .legend span {
+           position: relative;
+           bottom: 3px;
+         }
+
+         .legend i {
+           width: 20px;
+           height: 20px;
+           float: left;
+           margin: 0 8px 0 0;
+           opacity: 0.7;
+         }
+
+         .legend i.icon {
+           background-size: 20px;
+           background-color: rgba(255, 255, 255, 1);
+         }
      </style>
  </head>
 
@@ -84,6 +115,17 @@
 
      pointShape.addTo(map); //adding the symbolism to the map
 
+     var legend = L.control({position: 'topright'});
+
+     legend.onAdd = function(map){
+       var div = L.DomUtil.create("div", "legend");
+       div.innerHTML += "<h4>Status<h4>";
+       div.innerHTML += '<i style="background: #008000"></i><span>Active</span><br>';
+       div.innerHTML += '<i style="background: #FF0000"></i><span>Inactive</span><br>';
+       return div;
+     };
+
+     legend.addTo(map);
 
    </script>
   </body>
